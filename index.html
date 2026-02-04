@@ -10,96 +10,132 @@
             --bg-color: #121212;
             --text-color: #e0e0e0;
             --card-bg: #1e1e1e;
+            --accent-color: #2a2a2a;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
             padding: 0;
-            line-height: 1.6;
+            display: flex;
+            justify-content: center;
         }
 
         .container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
+            width: 100%;
+            max-width: 700px;
+            padding: 40px 20px;
         }
 
         header {
             text-align: center;
-            padding-bottom: 40px;
-            border-bottom: 2px solid var(--primary-color);
+            margin-bottom: 50px;
         }
 
         .profile-img {
-            width: 150px;
-            height: 150px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
             border: 3px solid var(--primary-color);
-            object-fit: cover;
             margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
         }
 
         h1 {
             color: var(--primary-color);
-            margin: 10px 0;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            margin-bottom: 5px;
         }
 
-        section { margin-top: 40px; }
-
-        h2 {
-            color: var(--primary-color);
-            border-left: 4px solid var(--primary-color);
-            padding-left: 15px;
-            margin-bottom: 20px;
-        }
-
-        .card {
+        /* --- STYLE ACCORDION (KLIK) --- */
+        .accordion-item {
             background: var(--card-bg);
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        /* --- STYLING ANIMASI BAHASA --- */
-        .skill-container {
             margin-bottom: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #333;
+            transition: 0.3s;
         }
 
+        .accordion-header {
+            width: 100%;
+            padding: 20px;
+            background: var(--card-bg);
+            color: var(--primary-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background 0.3s;
+        }
+
+        .accordion-header:hover {
+            background: var(--accent-color);
+        }
+
+        /* Simbol + dan - */
+        .accordion-header::after {
+            content: '+';
+            font-size: 1.5rem;
+            transition: 0.3s;
+        }
+
+        .active .accordion-header::after {
+            transform: rotate(45deg);
+            content: '+'; /* Menjadi tanda silang/tutup */
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.3s ease;
+            background: #181818;
+            padding: 0 20px;
+        }
+
+        .active .accordion-content {
+            max-height: 500px; /* Nilai besar agar konten terlihat */
+            padding: 20px;
+            border-top: 1px solid #333;
+        }
+
+        /* --- ANIMASI PROGRESS BAR --- */
         .skill-bar {
             background: #333;
-            height: 12px;
-            border-radius: 10px;
-            overflow: hidden; /* Penting agar animasi tetap di dalam bar */
-            margin-top: 5px;
+            height: 8px;
+            border-radius: 5px;
+            margin: 10px 0 20px 0;
+            position: relative;
         }
 
         .skill-per {
-            background: linear-gradient(90deg, #b8860b, var(--primary-color));
+            background: var(--primary-color);
             height: 100%;
-            border-radius: 10px;
-            width: 0; /* Mulai dari 0 untuk animasi */
-            animation: fillBar 2.5s cubic-bezier(0.1, 0.5, 0.5, 1) forwards;
+            border-radius: 5px;
+            width: 0;
+            transition: 1.5s ease-in-out;
         }
 
-        /* Keyframes untuk gerakan mengisi */
-        @keyframes fillBar {
-            from { width: 0; }
-            to { width: var(--target-width); }
+        /* Saat accordion dibuka, jalankan animasi bar */
+        .active .skill-per {
+            width: var(--target-width);
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        @media (max-width: 600px) {
-            .grid { grid-template-columns: 1fr; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 10px; }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #555;
+            font-size: 0.8em;
         }
     </style>
 </head>
@@ -107,63 +143,75 @@
 
 <div class="container">
     <header>
-        <img src="https://via.placeholder.com/150" alt="Calvin Bagaskara" class="profile-img">
-        <h1>Calvin Bagaskara</h1>
-        <p>Pelajar | Creative Thinker | Tech Enthusiast</p>
+        <img src="https://via.placeholder.com/150" alt="Calvin" class="profile-img">
+        <h1>CALVIN BAGASKARA</h1>
+        <p>Student & Tech Enthusiast</p>
     </header>
 
-    <div class="grid">
-        <section>
-            <h2>Pendidikan</h2>
-            <div class="card">
-                <p><strong>SMA KP BALEENDAH</strong><br>Lulus 2026</p>
-                <p><strong>SMP MUHAMMADIYAH</strong><br>Lulus 2023</p>
-            </div>
-            
-            <h2>Keahlian</h2>
-            <div class="card">
-                <ul>
-                    <li>Kerjasama Tim</li>
-                    <li>Adaptasi Cepat</li>
-                    <li>Problem Solving</li>
-                </ul>
-            </div>
-        </section>
-
-        <section>
-            <h2>Kemampuan Bahasa</h2>
-            <div class="card">
-                <div class="skill-container">
-                    <label>Bahasa Indonesia (100%)</label>
-                    <div class="skill-bar">
-                        <div class="skill-per" style="--target-width: 100%;"></div>
-                    </div>
-                </div>
-
-                <div class="skill-container">
-                    <label>Bahasa Sunda (100%)</label>
-                    <div class="skill-bar">
-                        <div class="skill-per" style="--target-width: 100%;"></div>
-                    </div>
-                </div>
-
-                <div class="skill-container">
-                    <label>Bahasa Inggris (10%)</label>
-                    <div class="skill-bar">
-                        <div class="skill-per" style="--target-width: 10%;"></div>
-                    </div>
-                </div>
-            </div>
-
-            <h2>Kontak</h2>
-            <div class="card">
-                📞 085179972033<br>
-                📸 @vynn_2high<br>
-                📍 Bojong Malaka
-            </div>
-        </section>
+    <div class="accordion-item">
+        <button class="accordion-header">Pendidikan</button>
+        <div class="accordion-content">
+            <p><strong>SMA KP BALEENDAH</strong><br>Lulus 2026</p>
+            <p><strong>SMP MUHAMMADIYAH</strong><br>Lulus 2023</p>
+            <p><strong>SDN MARGAHAYU 3</strong><br>Lulus 2020</p>
+        </div>
     </div>
+
+    <div class="accordion-item">
+        <button class="accordion-header">Keahlian</button>
+        <div class="accordion-content">
+            <ul>
+                <li>Mampu bekerja sama dalam tim</li>
+                <li>Mudah beradaptasi dengan lingkungan baru</li>
+                <li>Bertanggung jawab terhadap tugas</li>
+                <li>Manajemen waktu yang baik</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <button class="accordion-header">Kemampuan Bahasa</button>
+        <div class="accordion-content">
+            <p>Bahasa Indonesia (100%)</p>
+            <div class="skill-bar"><div class="skill-per" style="--target-width: 100%;"></div></div>
+            
+            <p>Bahasa Sunda (100%)</p>
+            <div class="skill-bar"><div class="skill-per" style="--target-width: 100%;"></div></div>
+            
+            <p>Bahasa Inggris (10%)</p>
+            <div class="skill-bar"><div class="skill-per" style="--target-width: 10%;"></div></div>
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <button class="accordion-header">Kontak & Sosmed</button>
+        <div class="accordion-content">
+            <p>📞 <strong>WhatsApp:</strong> 085179972033</p>
+            <p>📸 <strong>Instagram:</strong> @vynn_2high</p>
+            <p>📍 <strong>Alamat:</strong> Jl. Rancamanyar, Ciodeng, Desa Bojong Malaka</p>
+        </div>
+    </div>
+
+    <footer>&copy; 2024 Calvin Bagaskara</footer>
 </div>
+
+<script>
+    // Script untuk fungsi Klik Buka-Tutup
+    const accordions = document.querySelectorAll('.accordion-header');
+
+    accordions.forEach(acc => {
+        acc.addEventListener('click', function() {
+            const parent = this.parentElement;
+            
+            // Tutup bagian lain yang sedang terbuka (Optional, jika ingin hanya 1 yang terbuka)
+            // document.querySelectorAll('.accordion-item').forEach(item => {
+            //    if(item !== parent) item.classList.remove('active');
+            // });
+
+            parent.classList.toggle('active');
+        });
+    });
+</script>
 
 </body>
 </html>
